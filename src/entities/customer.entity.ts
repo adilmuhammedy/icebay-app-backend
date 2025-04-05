@@ -5,12 +5,12 @@ import {
   Column,
   OneToMany,
   CreateDateColumn,
-} from "typeorm";
-import { Order } from "./order.entity";
+} from 'typeorm';
+import { Order } from './order.entity';
 
-@Entity("customers")
+@Entity('customers')
 export class Customer {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ length: 20, unique: true })
@@ -19,10 +19,10 @@ export class Customer {
   @Column({ length: 10, nullable: true })
   otp_code: string;
 
-  @Column({ type: "timestamp", nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   otp_expiry: Date;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @OneToMany(() => Order, (order) => order.customer)

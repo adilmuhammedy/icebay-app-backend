@@ -5,13 +5,13 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-} from "typeorm";
-import { Order } from "./order.entity";
-import { FranchiseStock } from "./franchise-stock.entity";
+} from 'typeorm';
+import { Order } from './order.entity';
+import { FranchiseStock } from './franchise-stock.entity';
 
-@Entity("order_items")
+@Entity('order_items')
 export class OrderItem {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -23,17 +23,17 @@ export class OrderItem {
   @Column()
   quantity: number;
 
-  @Column({ type: "decimal", precision: 10, scale: 2 })
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
   @ManyToOne(() => Order, (order) => order.orderItems)
-  @JoinColumn({ name: "order_id" })
+  @JoinColumn({ name: 'order_id' })
   order: Order;
 
   @ManyToOne(
     () => FranchiseStock,
-    (franchiseStock) => franchiseStock.orderItems
+    (franchiseStock) => franchiseStock.orderItems,
   )
-  @JoinColumn({ name: "franchise_stock_id" })
+  @JoinColumn({ name: 'franchise_stock_id' })
   franchiseStock: FranchiseStock;
 }

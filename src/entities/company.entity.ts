@@ -5,21 +5,21 @@ import {
   Column,
   OneToMany,
   CreateDateColumn,
-} from "typeorm";
-import { CompanyUser } from "./company-user.entity";
-import { CompanyStock } from "./company-stock.entity";
-import { Franchise } from "./franchise.entity";
-import { StockRequest } from "./stock-request.entity";
+} from 'typeorm';
+import { CompanyUser } from './company-user.entity';
+import { CompanyStock } from './company-stock.entity';
+import { Franchise } from './franchise.entity';
+import { StockRequest } from './stock-request.entity';
 
-@Entity("company")
+@Entity('company')
 export class Company {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ length: 255, unique: true })
   name: string;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @OneToMany(() => CompanyUser, (user) => user.company)

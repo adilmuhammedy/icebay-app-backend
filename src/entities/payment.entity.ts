@@ -6,13 +6,13 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-} from "typeorm";
-import { Order } from "./order.entity";
-import { Franchise } from "./franchise.entity";
+} from 'typeorm';
+import { Order } from './order.entity';
+import { Franchise } from './franchise.entity';
 
-@Entity("payments")
+@Entity('payments')
 export class Payment {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -21,10 +21,10 @@ export class Payment {
   @Column()
   franchise_id: string;
 
-  @Column({ type: "decimal", precision: 10, scale: 2 })
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   amount: number;
 
-  @Column({ default: "pending" })
+  @Column({ default: 'pending' })
   status: string;
 
   @Column()
@@ -33,14 +33,14 @@ export class Payment {
   @Column({ length: 255, nullable: true })
   transaction_id: string;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @ManyToOne(() => Order, (order) => order.payments)
-  @JoinColumn({ name: "order_id" })
+  @JoinColumn({ name: 'order_id' })
   order: Order;
 
   @ManyToOne(() => Franchise, (franchise) => franchise.payments)
-  @JoinColumn({ name: "franchise_id" })
+  @JoinColumn({ name: 'franchise_id' })
   franchise: Franchise;
 }

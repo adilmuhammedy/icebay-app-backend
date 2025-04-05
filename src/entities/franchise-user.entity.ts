@@ -6,12 +6,12 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-} from "typeorm";
-import { Franchise } from "./franchise.entity";
+} from 'typeorm';
+import { Franchise } from './franchise.entity';
 
-@Entity("franchise_users")
+@Entity('franchise_users')
 export class FranchiseUser {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ length: 255 })
@@ -29,13 +29,13 @@ export class FranchiseUser {
   @Column()
   role: string;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @Column()
   franchise_id: string;
 
   @ManyToOne(() => Franchise, (franchise) => franchise.users)
-  @JoinColumn({ name: "franchise_id" })
+  @JoinColumn({ name: 'franchise_id' })
   franchise: Franchise;
 }

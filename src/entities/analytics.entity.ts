@@ -4,11 +4,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-} from "typeorm";
+} from 'typeorm';
 
-@Entity("analytics")
+@Entity('analytics')
 export class Analytics {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -17,7 +17,7 @@ export class Analytics {
   @Column()
   entity_type: string;
 
-  @Column({ type: "decimal", precision: 10, scale: 2 })
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   total_sales: number;
 
   @Column()
@@ -27,9 +27,9 @@ export class Analytics {
   top_selling_product: string;
 
   @CreateDateColumn({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
-    name: "last_updated",
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'last_updated',
   })
   last_updated: Date;
 }

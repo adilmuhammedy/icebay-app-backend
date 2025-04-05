@@ -7,14 +7,14 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { Company } from "./company.entity";
-import { Franchise } from "./franchise.entity";
-import { Product } from "./product.entity";
+} from 'typeorm';
+import { Company } from './company.entity';
+import { Franchise } from './franchise.entity';
+import { Product } from './product.entity';
 
-@Entity("stock_requests")
+@Entity('stock_requests')
 export class StockRequest {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -29,24 +29,24 @@ export class StockRequest {
   @Column()
   quantity_requested: number;
 
-  @Column({ default: "pending" })
+  @Column({ default: 'pending' })
   status: string;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   requested_at: Date;
 
-  @UpdateDateColumn({ type: "timestamp", nullable: true })
+  @UpdateDateColumn({ type: 'timestamp', nullable: true })
   updated_at: Date;
 
   @ManyToOne(() => Company, (company) => company.stockRequests)
-  @JoinColumn({ name: "company_id" })
+  @JoinColumn({ name: 'company_id' })
   company: Company;
 
   @ManyToOne(() => Franchise, (franchise) => franchise.stockRequests)
-  @JoinColumn({ name: "franchise_id" })
+  @JoinColumn({ name: 'franchise_id' })
   franchise: Franchise;
 
   @ManyToOne(() => Product, (product) => product.stockRequests)
-  @JoinColumn({ name: "product_id" })
+  @JoinColumn({ name: 'product_id' })
   product: Product;
 }

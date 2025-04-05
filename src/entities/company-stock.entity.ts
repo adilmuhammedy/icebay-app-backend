@@ -6,13 +6,13 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-} from "typeorm";
-import { Company } from "./company.entity";
-import { Product } from "./product.entity";
+} from 'typeorm';
+import { Company } from './company.entity';
+import { Product } from './product.entity';
 
-@Entity("company_stock")
+@Entity('company_stock')
 export class CompanyStock {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -24,14 +24,14 @@ export class CompanyStock {
   @Column()
   stock_quantity: number;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @ManyToOne(() => Company, (company) => company.stocks)
-  @JoinColumn({ name: "company_id" })
+  @JoinColumn({ name: 'company_id' })
   company: Company;
 
   @ManyToOne(() => Product, (product) => product.companyStocks)
-  @JoinColumn({ name: "product_id" })
+  @JoinColumn({ name: 'product_id' })
   product: Product;
 }

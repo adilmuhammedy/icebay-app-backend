@@ -5,26 +5,26 @@ import {
   Column,
   OneToMany,
   CreateDateColumn,
-} from "typeorm";
-import { CompanyStock } from "./company-stock.entity";
-import { FranchiseStock } from "./franchise-stock.entity";
-import { StockRequest } from "./stock-request.entity";
+} from 'typeorm';
+import { CompanyStock } from './company-stock.entity';
+import { FranchiseStock } from './franchise-stock.entity';
+import { StockRequest } from './stock-request.entity';
 
-@Entity("products")
+@Entity('products')
 export class Product {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ length: 255 })
   name: string;
 
-  @Column({ type: "text", nullable: true })
+  @Column({ type: 'text', nullable: true })
   description: string;
 
-  @Column({ type: "decimal", precision: 10, scale: 2 })
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @OneToMany(() => CompanyStock, (stock) => stock.product)
