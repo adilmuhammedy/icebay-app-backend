@@ -3,17 +3,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 export const databaseConfig = {
   imports: [ConfigModule],
-  useFactory: async (
-    configService: ConfigService,
-  ): Promise<TypeOrmModuleOptions> => ({
+  useFactory: (configService: ConfigService): TypeOrmModuleOptions => ({
     type: 'postgres',
-    host: configService.get<string>('DATABASE_HOST'),
-    port: configService.get<number>('DATABASE_PORT'),
-    username: configService.get<string>('DATABASE_USER'),
-    password: configService.get<string>('DATABASE_PASSWORD'),
-    database: configService.get<string>('DATABASE_NAME'),
+    host: configService.get('DATABASE_HOST') as string,
+    port: configService.get('DATABASE_PORT') as number,
+    username: configService.get('DATABASE_USER') as string,
+    password: configService.get('DATABASE_PASSWORD') as string,
+    database: configService.get('DATABASE_NAME') as string,
     autoLoadEntities: true,
-    synchronize: true, // Set false in production
+    synchronize: true, // Set to false in prod
   }),
   inject: [ConfigService],
 };

@@ -6,10 +6,10 @@ import {
   OneToMany,
   CreateDateColumn,
 } from 'typeorm';
-import { CompanyUser } from './company-user.entity';
-import { CompanyStock } from './company-stock.entity';
+import { CompanyUser } from './companyUser.entity';
+import { CompanyStock } from './companyStock.entity';
 import { Franchise } from './franchise.entity';
-import { StockRequest } from './stock-request.entity';
+import { StockRequest } from './stockRequest.entity';
 
 @Entity('company')
 export class Company {

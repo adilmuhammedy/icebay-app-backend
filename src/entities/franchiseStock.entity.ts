@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { Franchise } from './franchise.entity';
 import { Product } from './product.entity';
-import { OrderItem } from './order-item.entity';
+import { OrderItem } from './orderItem.entity';
 
 @Entity('franchise_stock')
 export class FranchiseStock {

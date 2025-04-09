@@ -6,7 +6,7 @@ import {
   OneToMany,
   CreateDateColumn,
 } from 'typeorm';
-import { CompanyStock } from './company-stock.entity';
+import { CompanyStock } from './companyStock.entity';
 import { FranchiseStock } from './franchise-stock.entity';
 import { StockRequest } from './stock-request.entity';
 

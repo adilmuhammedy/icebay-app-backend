@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Franchise } from './franchise.entity';
 import { Customer } from './customer.entity';
-import { OrderItem } from './order-item.entity';
+import { OrderItem } from './orderItem.entity';
 import { Payment } from './payment.entity';
 
 @Entity('orders')
