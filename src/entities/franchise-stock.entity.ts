@@ -1,4 +1,4 @@
-// src/entities/company-stock.entity.ts
+// src/entities/franchise-stock.entity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -7,16 +7,16 @@ import {
   JoinColumn,
   CreateDateColumn,
 } from 'typeorm';
-import { Company } from './company.entity';
+import { Franchise } from './franchise.entity';
 import { Product } from './product.entity';
 
-@Entity('company_stock')
-export class CompanyStock {
+@Entity('franchise_stock')
+export class FranchiseStock {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  company_id: string;
+  franchise_id: string;
 
   @Column()
   product_id: string;
@@ -27,11 +27,11 @@ export class CompanyStock {
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
-  @ManyToOne(() => Company, (company) => company.stocks)
-  @JoinColumn({ name: 'company_id' })
-  company: Company;
+  @ManyToOne(() => Franchise, (franchise) => franchise.stocks)
+  @JoinColumn({ name: 'franchise_id' })
+  franchise: Franchise;
 
-  @ManyToOne(() => Product, (product) => product.companyStocks)
+  @ManyToOne(() => Product, (product) => product.franchiseStocks)
   @JoinColumn({ name: 'product_id' })
   product: Product;
 }

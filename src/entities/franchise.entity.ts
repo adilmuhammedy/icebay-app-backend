@@ -9,11 +9,7 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 import { Company } from './company.entity';
-import { CompanyStock } from './companyStock.entity';
-import { FranchiseUser } from './franchiseUser.entity';
-import { StockRequest } from './stockRequest.entity';
-import { Order } from './order.entity';
-import { Payment } from './payment.entity';
+import { FranchiseStock } from './franchise-stock.entity';
 
 @Entity('franchises')
 export class Franchise {
@@ -51,18 +47,6 @@ export class Franchise {
   @JoinColumn({ name: 'company_id' })
   company: Company;
 
-  @OneToMany(() => CompanyStock, (stock) => stock.id) //changed this from stock.franchise to stock.franchise due to some error, need to check later
-  stocks: CompanyStock[];
-
-  @OneToMany(() => FranchiseUser, (user) => user.franchise)
-  users: FranchiseUser[];
-
-  @OneToMany(() => StockRequest, (stockRequest) => stockRequest.franchise)
-  stockRequests: StockRequest[];
-
-  @OneToMany(() => Order, (order) => order.franchise)
-  orders: Order[];
-
-  @OneToMany(() => Payment, (payment) => payment.franchise)
-  payments: Payment[];
+  @OneToMany(() => FranchiseStock, (stock) => stock.franchise)
+  stocks: FranchiseStock[];
 }

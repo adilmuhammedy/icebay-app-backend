@@ -1,36 +1,15 @@
 // src/entities/company.entity.ts
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  CreateDateColumn,
-} from 'typeorm';
-import { CompanyUser } from './companyUser.entity';
-import { CompanyStock } from './companyStock.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Franchise } from './franchise.entity';
-import { StockRequest } from './stockRequest.entity';
 
-@Entity('company')
+@Entity('companies')
 export class Company {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ length: 255, unique: true })
+  @Column({ length: 255 })
   name: string;
-
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
-
-  @OneToMany(() => CompanyUser, (user) => user.company)
-  users: CompanyUser[];
-
-  @OneToMany(() => CompanyStock, (stock) => stock.company)
-  stocks: CompanyStock[];
 
   @OneToMany(() => Franchise, (franchise) => franchise.company)
   franchises: Franchise[];
-
-  @OneToMany(() => StockRequest, (stockRequest) => stockRequest.company)
-  stockRequests: StockRequest[];
 }
