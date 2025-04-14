@@ -9,7 +9,7 @@ import {
 import { FranchiseStock } from './franchise-stock.entity';
 
 @Entity('products')
-export class Product {
+export class Products {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -25,6 +25,6 @@ export class Product {
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
-  @OneToMany(() => FranchiseStock, (stock) => stock.product)
+  @OneToMany(() => FranchiseStock, (stock) => stock.products)
   franchiseStocks: FranchiseStock[];
 }

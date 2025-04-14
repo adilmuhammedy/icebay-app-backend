@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 
 import { CustomerService } from './customer.service';
@@ -6,6 +14,9 @@ import { SendOtpDto, SendOtpDtoResponse } from './dto/send-otp.dto';
 import { VerifyOtpDto, VerifyOtpResponseDto } from './dto/verify-otp.dto';
 import { FranchiseResponseDto } from './dto/franchise.dto';
 import { ProductResponseDto } from './dto/product.dto';
+import { CreateCartDto } from './dto/create-cart.dto';
+import { AddItemDto } from './dto/add-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
 
 @ApiTags('Customers')
 @Controller('customers')
@@ -60,5 +71,35 @@ export class CustomerController {
   })
   getProductsByFranchise(@Param('franchiseId') franchiseId: string) {
     return this.customerService.getProductsByFranchise(franchiseId);
+  }
+
+  @Post('cart')
+  createCart(@Body() dto: CreateCartDto) {
+    return this.customerService.createCart(dto);
+  }
+
+  @Get('cart/:orderId')
+  getCart(@Param('orderId') orderId: string) {
+    return this.customerService.getCart(orderId);
+  }
+
+  @Post('cart/items')
+  addItem(@Body() dto: AddItemDto) {
+    return this.customerService.addItem(dto);
+  }
+
+  @Put('cart/items/:itemId')
+  updateItem(@Param('itemId') itemId: string, @Body() dto: UpdateItemDto) {
+    return this.customerService.updateItem(itemId, dto);
+  }
+
+  @Delete('cart/items/:itemId')
+  removeItem(@Param('itemId') itemId: string) {
+    return this.customerService.removeItem(itemId);
+  }
+
+  @Post('orders/checkout')
+  async checkoutOrder(@Body('orderId') orderId: string) {
+    return await this.customerService.checkoutOrder(orderId);
   }
 }

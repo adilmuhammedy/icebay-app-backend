@@ -8,7 +8,7 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 import { Franchise } from './franchise.entity';
-import { Product } from './product.entity';
+import { Products } from './products.entity';
 
 @Entity('franchise_stock')
 export class FranchiseStock {
@@ -27,11 +27,14 @@ export class FranchiseStock {
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updated_at: Date;
+
   @ManyToOne(() => Franchise, (franchise) => franchise.stocks)
   @JoinColumn({ name: 'franchise_id' })
   franchise: Franchise;
 
-  @ManyToOne(() => Product, (product) => product.franchiseStocks)
+  @ManyToOne(() => Products, (product) => product.franchiseStocks)
   @JoinColumn({ name: 'product_id' })
-  product: Product;
+  products: Products;
 }
