@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
-import { FranchiseService } from './franchise.service';
+import { FranchiseService } from './franchiseProduct.service';
 
 @Controller('franchise')
 export class FranchiseController {

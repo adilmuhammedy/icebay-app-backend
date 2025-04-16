@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { FranchiseService } from './franchise.service';
-import { FranchiseController } from './franchise.controller';
+import { FranchiseService } from './franchiseProduct.service';
+import { FranchiseController } from './franchiseProduct.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Products } from '../entities/products.entity';
 import { FranchiseStock } from '../entities/franchise-stock.entity';

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FranchiseController } from './franchise.controller';
-import { FranchiseService } from './franchise.service';
+import { FranchiseController } from './franchiseProduct.controller';
+import { FranchiseService } from './franchiseProduct.service';
 
 describe('FranchiseController', () => {
   let controller: FranchiseController;

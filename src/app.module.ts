@@ -3,13 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomerModule } from './customer/customer.module';
-import { FranchiseModule } from './franchise/franchise.module';
+import { FranchiseModule } from './franchise-product/franchiseProduct.module';
 import { ProductsModule } from './product/products.module';
 import { Products } from './entities/products.entity';
 import { Franchise } from './entities/franchise.entity';
 import { Company } from './entities/company.entity';
 import { FranchiseStock } from './entities/franchise-stock.entity';
 import { Customer } from './entities/customer.entity';
+import { FranchiseManagementModule } from './franchise-management/franchise-management.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -26,6 +27,7 @@ import { Customer } from './entities/customer.entity';
     CustomerModule,
     FranchiseModule,
     ProductsModule,
+    FranchiseManagementModule,
   ],
   controllers: [AppController],
   providers: [AppService],

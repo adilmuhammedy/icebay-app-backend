@@ -1,8 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FranchiseStock } from '../entities/franchise-stock.entity';
-import { Franchise } from '../entities/franchise.entity';
-import { Products } from '../entities/products.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -10,10 +8,6 @@ export class FranchiseService {
   constructor(
     @InjectRepository(FranchiseStock)
     private franchiseStockRepo: Repository<FranchiseStock>,
-    @InjectRepository(Franchise)
-    private franchiseRepo: Repository<Franchise>,
-    @InjectRepository(Products)
-    private productRepo: Repository<Products>,
   ) {}
 
   async updateFranchiseStock(
