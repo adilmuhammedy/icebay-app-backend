@@ -9,12 +9,11 @@ export class CreateFranchiseDto {
   @IsUUID()
   company_id: string;
 
-  @ApiProperty({
-    example: 'b6d24f1d-c2ee-4af5-887c-dc7aa4b298a0',
-    description: 'UUID of the user who owns the franchise',
-  })
   @IsUUID()
   owner_id: string;
+
+  @ApiProperty({ example: 'John' })
+  owner_name: string;
 
   @ApiProperty({
     example: 'GreenMart - Kochi',
