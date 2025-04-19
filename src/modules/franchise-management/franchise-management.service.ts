@@ -1,6 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Franchise } from '../entities/franchise.entity';
+import { Franchise } from '../../entities/franchise.entity';
 import { Repository } from 'typeorm';
 import { CreateFranchiseDto } from './dto/create-franchise.dto';
 import { UpdateFranchiseDto } from './dto/update-franchise.dto';
@@ -12,8 +16,17 @@ export class FranchiseManagementService {
     private readonly repo: Repository<Franchise>,
   ) {}
 
-  create(dto: CreateFranchiseDto) {
+  async create(dto: CreateFranchiseDto) {
     const franchise = this.repo.create(dto);
+    const phone = dto.phone;
+    const is_present = await this.repo.findOne({
+      where: { phone },
+    });
+    if (is_present) {
+      throw new BadRequestException(
+        'Franchise with this phone number already exists',
+      );
+    }
     return this.repo.save(franchise);
   }
 
@@ -24,7 +37,7 @@ export class FranchiseManagementService {
   async findOne(id: string) {
     const franchise = await this.repo.findOne({
       where: { id },
-      relations: ['company', 'owner'],
+      relations: ['company'],
     });
     if (!franchise) throw new NotFoundException('Franchise not found');
     return franchise;

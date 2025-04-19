@@ -1,4 +1,3 @@
-// src/entities/franchise.entity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -12,6 +11,7 @@ import {
 import { Company } from './company.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { FranchiseStock } from './franchise-stock.entity';
+import { StockRequest } from './stock-request.entity';
 
 @Entity('franchises')
 export class Franchise {
@@ -54,6 +54,9 @@ export class Franchise {
 
   @OneToMany(() => FranchiseStock, (stock) => stock.franchise)
   stocks: FranchiseStock[];
+
+  @OneToMany(() => StockRequest, (request) => request.franchise)
+  stock_requests: StockRequest[];
 
   // Auto-generate UUID for owner_id
   @BeforeInsert()

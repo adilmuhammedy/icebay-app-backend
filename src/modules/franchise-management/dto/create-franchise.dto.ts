@@ -9,8 +9,8 @@ export class CreateFranchiseDto {
   @IsUUID()
   company_id: string;
 
-  @IsUUID()
-  owner_id: string;
+  // @IsUUID()
+  // owner_id: string;
 
   @ApiProperty({ example: 'John' })
   owner_name: string;
