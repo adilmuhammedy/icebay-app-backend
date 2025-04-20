@@ -58,17 +58,10 @@ export class StockRequestService {
     });
   }
 
-  async findOne(franchiseId: string, stockRequestId: string) {
-    const franchise = await this.franchiseRepo.findOne({
-      where: { id: franchiseId },
-    });
-
-    if (!franchise) throw new NotFoundException('Franchise not found');
-
+  async findOne(stockRequestId: string) {
     const request = await this.stockRequestRepo.findOne({
       where: {
         id: stockRequestId,
-        franchise_id: franchiseId,
       },
     });
 
@@ -77,21 +70,15 @@ export class StockRequestService {
     return request;
   }
 
-  async update(
-    franchiseId: string,
-    stockRequestId: string,
-    dto: UpdateStockRequestDto,
-  ) {
+  async update(stockRequestId: string, dto: UpdateStockRequestDto) {
     const request = await this.stockRequestRepo.findOne({
-      where: { id: stockRequestId, franchise_id: franchiseId },
+      where: { id: stockRequestId },
     });
 
     if (!request) throw new NotFoundException('Stock request not found');
 
     if (dto.status) {
       const normalizedStatus = dto.status.toUpperCase();
-      console.log('Normalized Status:', normalizedStatus);
-      console.log('Original Status:', dto.status);
       const validStatuses = Object.values(stockRequestStatuses);
       if (!validStatuses.includes(normalizedStatus)) {
         throw new BadRequestException(`Invalid status: ${dto.status}`);
@@ -101,11 +88,10 @@ export class StockRequestService {
     return this.stockRequestRepo.save(request);
   }
 
-  async remove(franchiseId: string, stockRequestId: string) {
+  async remove(stockRequestId: string) {
     const request = await this.stockRequestRepo.findOne({
-      where: { id: stockRequestId, franchise: { id: franchiseId } },
+      where: { id: stockRequestId },
     });
-
     if (!request) throw new NotFoundException('Stock request not found');
 
     return this.stockRequestRepo.remove(request);

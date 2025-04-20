@@ -29,28 +29,21 @@ export class StockRequestController {
     return this.stockRequestService.findAll(franchiseId);
   }
 
-  @Get(':franchiseId/:stockRequestId')
-  findOne(
-    @Param('franchiseId') franchiseId: string,
-    @Param('stockRequestId') stockRequestId: string,
-  ) {
-    return this.stockRequestService.findOne(franchiseId, stockRequestId);
+  @Get(':stockRequestId')
+  findOne(@Param('stockRequestId') stockRequestId: string) {
+    return this.stockRequestService.findOne(stockRequestId);
   }
 
-  @Put(':franchiseId/:stockRequestId')
+  @Put(':stockRequestId')
   update(
-    @Param('franchiseId') franchiseId: string,
     @Param('stockRequestId') stockRequestId: string,
     @Body() dto: UpdateStockRequestDto,
   ) {
-    return this.stockRequestService.update(franchiseId, stockRequestId, dto);
+    return this.stockRequestService.update(stockRequestId, dto);
   }
 
-  @Delete(':franchiseId/:stockRequestId')
-  remove(
-    @Param('franchiseId') franchiseId: string,
-    @Param('stockRequestId') stockRequestId: string,
-  ) {
-    return this.stockRequestService.remove(franchiseId, stockRequestId);
+  @Delete(':stockRequestId')
+  remove(@Param('stockRequestId') stockRequestId: string) {
+    return this.stockRequestService.remove(stockRequestId);
   }
 }
