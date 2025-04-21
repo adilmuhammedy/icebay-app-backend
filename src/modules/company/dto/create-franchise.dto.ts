@@ -1,4 +1,4 @@
-import { IsUUID, IsString, IsOptional } from 'class-validator';
+import { IsUUID, IsString, IsOptional, IsPhoneNumber } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateFranchiseDto {
@@ -27,6 +27,7 @@ export class CreateFranchiseDto {
     description: 'Phone number of the franchise',
   })
   @IsString()
+  @IsPhoneNumber('IN')
   phone: string;
 
   @ApiPropertyOptional({

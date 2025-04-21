@@ -3,17 +3,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomerModule } from './modules/customer/customer.module';
-import { FranchiseModule } from './modules/franchise-product/franchiseProduct.module';
-import { ProductsModule } from './modules/product/products.module';
 import { Products } from './entities/products.entity';
 import { Franchise } from './entities/franchise.entity';
 import { Company } from './entities/company.entity';
 import { FranchiseStock } from './entities/franchise-stock.entity';
 import { Customer } from './entities/customer.entity';
-import { FranchiseManagementModule } from './modules/franchise-management/franchise-management.module';
-import { StockRequestModule } from './modules/stock-request/stock-request.module';
 import { StockRequest } from './entities/stock-request.entity';
 import { StockRequestItem } from './entities/stock-request-item.entity';
+import { CompanyModule } from './modules/company/company.module';
+import { FranchiseModule } from './modules/franchise/franchise.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -36,10 +34,8 @@ import { StockRequestItem } from './entities/stock-request-item.entity';
       logging: true,
     }),
     CustomerModule,
+    CompanyModule,
     FranchiseModule,
-    ProductsModule,
-    FranchiseManagementModule,
-    StockRequestModule,
   ],
   controllers: [AppController],
   providers: [AppService],
