@@ -19,6 +19,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       return true;
     }
 
+    // For debugging
+    const request = context.switchToHttp().getRequest();
+    console.log('Auth headers:', request.headers.authorization);
+
     return super.canActivate(context);
   }
 }

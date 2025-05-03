@@ -43,6 +43,7 @@ export class AuthService {
     };
   }
 
+  // Update the login method to include company_id in the payload
   async login(loginDto: LoginDto) {
     const user = await this.userRepository.findOne({
       where: { email: loginDto.email },
@@ -58,7 +59,14 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = { email: user.email, sub: user.id, role: user.role };
+    // Include company_id in the payload
+    const payload = {
+      email: user.email,
+      sub: user.id,
+      role: user.role,
+      company_id: user.company_id,
+    };
+
     const { password, ...result } = user;
 
     return {

@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  ManyToOne,
+  JoinColumn,
   CreateDateColumn,
 } from 'typeorm';
 import { FranchiseStock } from './franchise-stock.entity';
+import { Company } from './company.entity';
 
 @Entity('products')
 export class Products {
@@ -27,4 +30,11 @@ export class Products {
 
   @OneToMany(() => FranchiseStock, (stock) => stock.products)
   franchiseStocks: FranchiseStock[];
+
+  @Column({ nullable: true })
+  company_id: string;
+
+  @ManyToOne(() => Company, { nullable: true })
+  @JoinColumn({ name: 'company_id' })
+  company: Company;
 }

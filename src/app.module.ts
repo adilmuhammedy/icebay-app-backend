@@ -62,4 +62,8 @@ import { User } from './entities/user.entity';
     },
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    console.log('APP_GUARD providers registered');
+  }
+}
