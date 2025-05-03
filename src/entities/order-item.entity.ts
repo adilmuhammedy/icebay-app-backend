@@ -22,11 +22,14 @@ export class OrderItem {
   @Column()
   quantity: number;
 
+  @Column('decimal', { precision: 10, scale: 2, default: 0 })
+  price: number;
+
   @ManyToOne(() => Order, (order) => order.items)
   @JoinColumn({ name: 'order_id' })
   order: Order;
 
   @ManyToOne(() => Products)
   @JoinColumn({ name: 'product_id' })
-  products: Products;
+  product: Products;
 }

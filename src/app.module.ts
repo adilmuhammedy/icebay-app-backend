@@ -12,8 +12,18 @@ import { StockRequest } from './entities/stock-request.entity';
 import { StockRequestItem } from './entities/stock-request-item.entity';
 import { CompanyModule } from './modules/company/company.module';
 import { FranchiseModule } from './modules/franchise/franchise.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { RolesGuard } from './guards/roles.guard';
+import { User } from './entities/user.entity';
+
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DATABASE_HOST || 'localhost',
@@ -28,6 +38,7 @@ import { FranchiseModule } from './modules/franchise/franchise.module';
         Customer,
         StockRequest,
         StockRequestItem,
+        User,
       ],
       database: process.env.DATABASE_NAME || 'icebay',
       synchronize: true,
@@ -36,8 +47,19 @@ import { FranchiseModule } from './modules/franchise/franchise.module';
     CustomerModule,
     CompanyModule,
     FranchiseModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}
