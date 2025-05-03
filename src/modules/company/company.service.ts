@@ -15,6 +15,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { Company } from 'src/entities/company.entity';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { User, UserRole } from 'src/entities/user.entity';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class CompanyService {
@@ -60,6 +61,7 @@ export class CompanyService {
   async createFranchise(dto: CreateFranchiseDto) {
     const franchise = this.franchiseRepo.create(dto);
     const phone = dto.phone;
+
     const is_present = await this.franchiseRepo.findOne({
       where: { phone },
     });
@@ -73,7 +75,36 @@ export class CompanyService {
     // Generate unique QR code for the franchise
     franchise.qr_code = `FR-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-    return this.franchiseRepo.save(franchise);
+    // Save the franchise first to get its ID
+    const savedFranchise = await this.franchiseRepo.save(franchise);
+
+    // Generate a random password
+    const tempPassword = crypto.randomBytes(6).toString('hex');
+
+    console.log(
+      `Temporary password for franchise ${savedFranchise.name}: ${tempPassword}`)
+
+    // Create user account for the franchise
+    const email = `${franchise.name.toLowerCase().replace(/\s+/g, '.')}-${franchise.registration_id}@icebay.com`;
+
+    const franchiseUser = this.userRepo.create({
+      email: email, // Generate email based on franchise name and ID
+      password: tempPassword, // Will be hashed by BeforeInsert hook
+      role: UserRole.FRANCHISE,
+      franchise_id: savedFranchise.id,
+    });
+
+    await this.userRepo.save(franchiseUser);
+
+    // Return franchise with the credentials (only for initial creation)
+    return {
+      franchise: savedFranchise,
+      credentials: {
+        email,
+        temporaryPassword: tempPassword,
+        note: 'Please save these credentials and share them securely with the franchise owner.',
+      },
+    };
   }
 
   fetchAllFranchise() {

@@ -1,8 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { stockRequestStatuses } from '../../../global/constants/constants';
+
 export class UpdateStockRequestDto {
   @ApiProperty({
-    example: 'APPROVED',
-    description: 'status of the stock request',
+    example: 'approved',
+    enum: Object.values(stockRequestStatuses),
+    description: 'New status for the stock request',
   })
-  status: string;
+  @IsString()
+  @IsEnum(stockRequestStatuses)
+  @IsOptional()
+  status?: string;
 }
