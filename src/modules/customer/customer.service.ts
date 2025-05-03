@@ -57,25 +57,29 @@ export class CustomerService {
     return { message: 'OTP sent successfully' };
   }
 
+  // In customer.service.ts:
   async verifyOtp(dto: VerifyOtpDto): Promise<VerifyOtpResponseDto> {
     const storedOtp = this.otpStore.get(dto.phone);
     if (storedOtp && storedOtp === dto.otp) {
       this.otpStore.delete(dto.phone);
 
-      // Find customer record to return with response
+      // Find customer record
       const customer = await this.customerRepo.findOne({
         where: { phone: dto.phone },
       });
+
       if (!customer) {
         throw new NotFoundException('Customer not found');
       }
 
+      // Always include customerId when authenticated is true
       return {
         authenticated: true,
-        customerId: customer.id,
+        customerId: customer.id, // This is guaranteed to be a string
       };
     }
 
+    // When not authenticated, don't include customerId
     return { authenticated: false };
   }
 
